@@ -13,9 +13,13 @@ class App extends React.Component {
     };
   }
 
-  async componentDidMount() {}
+  async componentDidMount() {
+    this.setState({ fib: await calculateFib(this.state.result) });
+    }
 
-  handleClick = async () => {};
+  handleClick = async () => {
+    this.setState({ result: await calculateFib(this.state.numberToGet) });
+  }
 
   updateNumberToGet = (e) => {
     this.setState({ numberToGet: e.target.value });
