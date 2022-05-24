@@ -1,46 +1,36 @@
 import React from 'react';
-import Pokemon from './Pokemon';
-import { fetchPokemonImage, myLogger } from './util';
+import FibonacciNumber from './components/Fibonacci';
+import { calculateFib } from './util';
 
 class App extends React.Component {
   constructor() {
     super();
-    // this.logger = myLogger.bind(this);
-    // this.logger('constructor');
     this.state = {
-      pokemonName: 'bulbasaur',
-      imgUrl: '',
+      numberToGet: 38,
+      result: calculateFib(38),
     };
   }
 
-  // async componentDidMount() {
-  // this.logger('componentDidMount');
-  // this.setState({ imgUrl: await fetchPokemonImage(this.state.pokemonName) });
-  // }
+  handleClick = () => {
+    let result = calculateFib(this.state.numberToGet);
+    this.setState({ result: result });
+  };
 
-  // componentDidUpdate() {
-  //   this.logger('componentDidUpdate');
-  // }
-
-  async handleClick(pokemon) {
-    this.setState({ pokemonName: pokemon, imgUrl: await fetchPokemonImage(pokemon) });
-  }
-
-  clear() {
-    this.setState({ pokemonName: undefined });
-  }
+  updateNumberToGet = (e) => {
+    this.setState({ numberToGet: e.target.value });
+  };
 
   render() {
-    // this.logger('render');
-    const { pokemonName, imgUrl } = this.state;
+    const { result } = this.state;
 
     return (
       <div>
-        <h1>{this.state.pokemonName}</h1>
-        <button onClick={() => this.handleClick('pikachu')}>Pikachu</button>
-        <button onClick={() => this.handleClick('meowth')}>Meowth</button>
-        <button onClick={() => this.clear()}>Clear</button>
-        {pokemonName && <Pokemon imgUrl={imgUrl} />}
+        <h1>The {this.state.numberToGet}th number in the Fibonacci sequence is:</h1>
+        <FibonacciNumber fibonacciNumber={result} />
+        <div>
+          <input value={this.state.numberToGet} onChange={this.updateNumberToGet} />
+          <button onClick={this.handleClick}>Get new number!</button>
+        </div>
       </div>
     );
   }

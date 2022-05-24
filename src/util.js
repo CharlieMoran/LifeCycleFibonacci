@@ -1,11 +1,9 @@
-import axios from 'axios';
 export const myLogger = function (message, color = 'lightblue') {
-  const start = new Date().getTime();
-  //   while (new Date().getTime() < start + 1000);
   console.log(`%c${this.constructor.name}: ${message}`, `color: ${color}`);
 };
 
-export const fetchPokemonImage = async function (pokemonName) {
-  const { data } = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
-  return data.sprites.front_default;
+export const calculateFib = function (n) {
+  if (n === 0 || n === 1) return n;
+  if (n > 42) throw Error("I can't go higher than 42 without breaking your computer.");
+  return calculateFib(n - 1) + calculateFib(n - 2);
 };
